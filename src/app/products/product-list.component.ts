@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BehaviorSubject, catchError, combineLatest, EMPTY, filter, map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, EMPTY, map, Subject } from 'rxjs';
+import { debug, RxJsLoggingLevel } from '../common/debug';
 
 import { ProductCategory } from '../product-categories/product-category';
 import { ProductCategoryService } from '../product-categories/product-category.service';
@@ -29,6 +30,7 @@ export class ProductListComponent {
         products.filter(product =>
           selectedCategoryId ? product.categoryId === selectedCategoryId : true
         )),
+      debug(RxJsLoggingLevel.INFO, 'Message'),
       catchError(err => {
         this.errorMessageSubject.next(err);
         return EMPTY;
